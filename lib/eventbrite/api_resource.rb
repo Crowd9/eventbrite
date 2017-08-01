@@ -20,13 +20,13 @@ module Eventbrite
     end
 
     def refresh
-      response, token = Eventbrite.request(:get, url, @token, @retrieve_options)
+      response, token = Eventbrite.request(:get, url, @token, @timeout_options, @retrieve_options)
       refresh_from(response, token)
       self
     end
 
-    def self.retrieve(id, token=nil)
-      instance = self.new(id, token)
+    def self.retrieve(id, token=nil, timeout_opts={})
+      instance = self.new(id, token, timeout_opts)
       instance.refresh
       instance
     end

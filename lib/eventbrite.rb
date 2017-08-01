@@ -53,7 +53,7 @@ module Eventbrite
     "#{api_base}/#{api_version}#{url}"
   end
 
-  def self.request(method, url, token, params={})
+  def self.request(method, url, token, timeout_opts={}, params={})
     unless token ||= self.token
       raise AuthenticationError.new('No access token provided. Set your token using "Eventbrite.token = <access-token>"."')
     end
@@ -72,10 +72,10 @@ module Eventbrite
     request_opts = {
       headers: request_headers(token),
       method: method,
-      open_timeout: 30,
+      open_timeout: timeout_opts[:open_timeout] || 30,
       payload: payload,
       url: url,
-      timeout: 120
+      read_timeout: timeout_opts[:read_timeout] || 120
     }
 
     begin

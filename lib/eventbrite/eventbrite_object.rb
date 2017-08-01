@@ -10,7 +10,7 @@ module Eventbrite
       undef :id
     end
 
-    def initialize(id=nil, token=nil)
+    def initialize(id=nil, token=nil, timeout_options={})
       # parameter overloading!
       if id.kind_of?(Hash)
         @retrieve_options = id.dup
@@ -19,6 +19,8 @@ module Eventbrite
       else
         @retrieve_options = {}
       end
+
+      @timeout_options = timeout_options
 
       @token = token
       @values = {}

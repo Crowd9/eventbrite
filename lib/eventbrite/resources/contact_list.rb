@@ -1,11 +1,11 @@
 module Eventbrite
   class ContactList < APIResource
-    def self.all(params={}, token=nil)
+    def self.all(params={}, token=nil, timeout_opts={})
       unless user_id = params.delete(:user_id)
         raise InvalidRequestError.new('No user_id provided.')
       end
 
-      response, token = Eventbrite.request(:get, self.all_url(user_id), token, params)
+      response, token = Eventbrite.request(:get, self.all_url(user_id), token, timeout_opts, params)
       Util.convert_to_eventbrite_object(response, token)
     end
 

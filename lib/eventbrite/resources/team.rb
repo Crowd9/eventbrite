@@ -7,8 +7,8 @@ module Eventbrite
       instance
     end
 
-    def self.attendees(event_id, id, token=nil)
-      response, token = Eventbrite.request(:get, self.attendees_url(event_id, id), token, params)
+    def self.attendees(event_id, id, token=nil, timeout_opts={})
+      response, token = Eventbrite.request(:get, self.attendees_url(event_id, id), token, timeout_opts, params)
       Util.convert_to_eventbrite_object(response, token)
     end
 
